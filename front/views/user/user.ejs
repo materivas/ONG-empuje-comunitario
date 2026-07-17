@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+</head>
+<body>
+    <h1>ONG Empuje Comunitario - Gestión de Usuarios</h1>
+    <p class="slogan">“Trabajamos juntos por una comunidad más fuerte y solidaria.”</p>
+    <%- include('../templates/navbarUser') %>
+    <section>
+        <div class="container">
+            <h1>Usuarios</h1>
+            <table id="userList">
+                <tr>
+                    <th>Nombre de usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <script type="module" src="/js/user/users.js"></script>
+</body>
+
+</html>

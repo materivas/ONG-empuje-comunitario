@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/donationReports.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <title>Actualizar filtro</title>
+</head>
+<body>
+    <h1>ONG Empuje Comunitario - Gestión de Donaciones</h1>
+    <p class="slogan">“Trabajamos juntos por una comunidad más fuerte y solidaria.”</p>
+    <%- include('../templates/navbarDonationReports') %>
+    
+    <div id="success"></div>
+    <div id="error"></div>
+    <section>
+        <div class="container">
+            <form id="updateFilterForm" class="form">
+                <input type="hidden" id="idFilter" value="<%= idFilter %>">
+                <input type="hidden" id="idUser" value="<%= idUser %>">
+                <h2>Modificando filtro</h2>
+                <label>Nombre</label><input id="name" type="text" name="name"><br>
+                
+                <label>Categoría</label>
+                <select id="category" name="category">
+                    <option value="TODAS">Todas</option>
+                    <option value="ROPA">Ropa</option>
+                    <option value="ALIMENTOS">Alimentos</option>
+                    <option value="JUGUETES">Juguetes</option>
+                    <option value="UTILES_ESCOLARES">Utiles escolares</option>
+                </select>
+
+                <label>Fecha desde</label><input id="dateFrom" type="date" name="dateFrom"><br>
+                <label>Fecha hasta</label><input id="dateTo" type="date" name="dateTo"><br>
+
+                <label>Eliminada</label>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="deleted" name="deleted">
+                    <label for="deleted">¿El filtro debe traer solo donaciones eliminadas?</label>
+
+                    <input type="checkbox" id="both" name="both">
+                    <label for="both">¿El filtro debe traer donaciones eliminadas y no eliminadas?</label>
+                </div>
+                <br>
+
+                <button type="submit">Confirmar</button>
+                <button type="button" id="btnCancel">Cancelar</button>
+            </form>
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <script src="/js/donations/updateFilter.js"></script>
+</body>
+</html>

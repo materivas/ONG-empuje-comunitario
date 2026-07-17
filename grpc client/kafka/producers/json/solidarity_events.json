@@ -1,0 +1,37 @@
+[
+    {
+        "organization_id": 2,
+        "event_id": 101,
+        "event_name": "Colecta de alimentos",
+        "description": "Recolección de alimentos no perecederos para comedores comunitarios.",
+        "date": "2025-11-28T10:00:00Z"
+    },
+    {
+        "organization_id": 3,
+        "event_id": 102,
+        "event_name": "Jornada de útiles escolares",
+        "description": "Entrega de kits escolares a estudiantes de primaria.",
+        "date": "2025-12-02T14:30:00Z"
+    },
+    {
+        "organization_id": 4,
+        "event_id": 103,
+        "event_name": "Feria de ropa solidaria",
+        "description": "Donación de ropa de abrigo para familias en situación de calle.",
+        "date": "2025-12-05T09:00:00Z"
+    },
+    {
+        "organization_id": 5,
+        "event_id": 104,
+        "event_name": "Tarde de juegos",
+        "description": "Actividades recreativas y entrega de juguetes para niños.",
+        "date": "2025-12-07T16:00:00Z"
+    },
+    {
+        "organization_id": 6,
+        "event_id": 105,
+        "event_name": "Visita solidaria al hospital",
+        "description": "Entrega de alimentos, ropa y juguetes a pacientes pediátricos del Hospital Municipal.",
+        "date": "2025-12-18T10:30:00Z"
+    }
+]

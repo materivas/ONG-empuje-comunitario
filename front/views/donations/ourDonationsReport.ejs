@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/donationReports.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <title>Donaciones realizadas</title>
+</head>
+<body>
+    <h1>ONG Empuje Comunitario - Gestión de Donaciones</h1>
+    <p class="slogan">“Trabajamos juntos por una comunidad más fuerte y solidaria.”</p>
+    <%- include('../templates/navbarDonationReports') %>
+    <%- include('../templates/donationsReportFilters', { exportType: 'made' }) %>
+
+    <div id="success"></div>
+    <div id="error"></div>
+    <section>
+        <div class="container">
+            <h1>Donaciones realizadas</h1>
+            <table id="donationsTable">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Eliminada</th>
+                        <th>Fecha de la última donación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h1>Resumen por categorías</h1>
+            <table id="resumeTable">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Cantidad Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <input type="hidden" id="userId" value="<%= userId %>">
+    <script src="/js/donations/ourDonationsReport.js"></script>
+    <script src="/js/donations/donationsReportFilters.js"></script>
+</body>
+</html>

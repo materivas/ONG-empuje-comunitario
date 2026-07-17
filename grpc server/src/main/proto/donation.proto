@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_outer_classname = "DonationServiceClass";
+option java_package = "com.grupo_c.SistemasDistribuidosTP.service";
+
+import "utils.proto";
+
+message DonationDTO {
+  int64 idDonation = 1;
+  string category = 2;
+  string description = 3;
+  int32 quantity = 4;
+  bool isDeleted = 5;
+  bool madeByOurselves = 6;
+}
+
+message DonationListResponse {
+  repeated DonationDTO donations = 1;
+}
+
+message UpdateStockRequest {
+  repeated DonationItem items = 1;
+}
+
+message DonationItem {
+  string category = 1;
+  string description = 2;
+  int32 quantity = 3;
+}
+
+service DonationService {
+  rpc GetDonationList(Empty) returns (DonationListResponse);
+  rpc CreateDonation(DonationDTO) returns (Response);
+  rpc UpdateStock(UpdateStockRequest) returns (Response);
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_outer_classname = "UtilsServiceClass";
+option java_package = "com.grupo_c.SistemasDistribuidosTP.service";
+
+message Response {
+    string message = 1;
+    bool succeeded = 2;
+}
+
+message Empty{}

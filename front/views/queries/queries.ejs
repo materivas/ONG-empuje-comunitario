@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queries</title>
+    <link rel="stylesheet" href="/css/queries.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+</head>
+
+<body>
+    <h1>ONG Empuje Comunitario</h1>
+    <nav>
+        <a href="/home">Volver a inicio</a>
+        <a href="#" onclick="logout(); return false;">Cerrar sesión</a>
+    </nav>
+
+    <section>
+
+        <div class="container">
+            <h1>Consultas presidentes</h1>
+
+            <form onsubmit="event.preventDefault(); getPresidents();">
+                <label for="ids">IDs de organizaciones (separados por coma):</label>
+                <textarea name="ids" id="presidentsIds" rows="3" cols="40" placeholder="Ej: 6,5,8,10">6,5,8,10</textarea>
+                <button type="submit">consultar</button>
+            </form>
+            <br>
+            <table id="list-presidents">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Id de organización</th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h1>Consultas ONGs</h1>
+
+            <form onsubmit="event.preventDefault(); getOrganizations();">
+                <label for="ids">IDs de organizaciones (separados por coma):</label>
+                <textarea name="ids" id="organizationsIds" rows="3" cols="40" placeholder="Ej: 6,5,8,10">6,5,8,10</textarea>
+                <button type="submit">consultar</button>
+            </form>
+            <br>
+            <table id="list-ONGs">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <script src="../js/queries/queries.js"></script>
+    <script src="../js/user/logout.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Inventario</title>
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+</head>
+<body>
+    <%- include('../templates/navbarHome') %>
+    <main>
+        <h1>Crear Inventario</h1>
+        <form action="/inventories" method="post" class="form">
+            <label>Categoría:</label>
+            <select name="category" required>
+                <option value="ROPA">ROPA</option>
+                <option value="ALIMENTOS">ALIMENTOS</option>
+                <option value="JUGUETES">JUGUETES</option>
+                <option value="UTILES_ESCOLARES">UTILES_ESCOLARES</option>
+            </select>
+            <label>Descripción: <input name="description" /></label>
+            <label>Cantidad: <input type="number" name="quantity" value="0" min="0" /></label>
+            <button type="submit">Crear</button>
+        </form>
+        <a href="/inventories" class="button-link">Volver</a>
+    </main>
+    <%- include('../templates/footer') %>
+</body>
+</html>

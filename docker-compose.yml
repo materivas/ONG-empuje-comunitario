@@ -1,0 +1,138 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  grpc-server:
+    build: "./grpc server"
+    container_name: grpc_server
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT}
+      SPRING_SECURITY_JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z localhost 9090 || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  grpc-client:
+    build: "./grpc client"
+    container_name: api_gateway
+    depends_on:
+      grpc-server:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    ports:
+      - "8080:9091"
+    volumes:
+      - ./front:/app/front
+    environment:
+      INVENTORY_SERVICE_ADDR: grpc-server:9090
+      USER_SERVICE_ADDR: grpc-server:9090
+      EVENT_SERVICE_ADDR: grpc-server:9090
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      MY_ORG_ID: ${MY_ORG_ID}
+
+  graphql-server:
+    build: "./graphql-server"
+    container_name: graphql_server
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    environment:
+      DB_HOST: db
+      DB_USER: ${MYSQL_DB_USERNAME}
+      DB_PASSWORD: ${MYSQL_DB_PASSWORD}
+      DB_NAME: ${MYSQL_DB_NAME}
+      DB_PORT: 3306
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka-broker
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z localhost 9092 || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  kafbat-ui:
+    container_name: kafbat-ui
+    image: ghcr.io/kafbat/kafka-ui:latest
+    ports:
+      - 8999:8080
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+  rest-server:
+    build: ./rest-server
+    container_name: rest_server
+    links:
+      - db:db 
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SERVER_PORT: 9093
+    ports:
+      - "9093:9093"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
+  kafka-data:

@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_outer_classname = "EventServiceClass";
+option java_package = "com.grupo_c.SistemasDistribuidosTP.service";
+
+import "utils.proto";
+//import "user.proto";
+
+message ParticipantDto{
+    int64 id = 1;
+    string username = 2;
+}
+
+message EventDto{
+    string name = 1;
+    string description = 2;
+    google.protobuf.Timestamp date = 3;
+    //el evento inicialmente cuenta con el usuario creador
+    repeated ParticipantDto participants = 4;
+}
+
+message EventWithParticipantsDto{
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    google.protobuf.Timestamp date = 4;
+    repeated ParticipantDto participants = 5;
+    bool is_completed = 6;
+}
+
+message EventWithoutParticipantsDto{
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    google.protobuf.Timestamp date = 4;
+    bool is_completed = 5;
+    bool joined = 6;
+}
+
+message EventAssignOrDeleteRequest {
+    int64 event_id = 1;
+    int64 user_id = 2;
+}
+
+message EventRequest{
+    int64 id = 1;
+}
+
+message EventsWithParticipantsList{
+    repeated EventWithParticipantsDto events = 1;
+}
+
+message EventsWithoutParticipantsList{
+    repeated EventWithoutParticipantsDto events = 1;
+}
+
+message RegisterEventInventoryRequest{
+    int64 user_id = 1;
+    int64 event_id = 2;
+    int64 inventory_id = 3;
+    int32 quantity = 4;
+}
+
+message DonationDto{
+    string username = 1;
+    string description = 2;
+    int32 quantity = 3;
+    google.protobuf.Timestamp distribution_date = 4;
+}
+
+message EventInventoryList{
+    repeated DonationDto donations = 1;
+}
+
+
+service EventService{
+    rpc CreateEvent (EventDto) returns (Response);
+    rpc ModifyEvent (EventWithParticipantsDto) returns (Response);
+    rpc DeleteEvent (EventRequest) returns (Response);
+    rpc AssignUserToEvent (EventAssignOrDeleteRequest) returns (Response);
+    rpc DeleteUserFromEvent (EventAssignOrDeleteRequest) returns (Response);
+    rpc GetEvent (EventRequest) returns (EventWithParticipantsDto);
+    rpc GetEventsWithParticipantsList (Empty) returns(EventsWithParticipantsList);
+    rpc GetEventsWithoutParticipantsList (EventRequest) returns(EventsWithoutParticipantsList);
+    rpc RegisterEventInventory (RegisterEventInventoryRequest) returns (Response);
+    rpc GetEventInventory (EventRequest) returns (EventInventoryList);
+}

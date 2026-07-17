@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/transferDonation.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <title>Creando Solicitud de Donación</title>
+</head>
+
+<body>
+    <header>
+        <h1>ONG Empuje Comunitario</h1>
+        <p class="slogan">“Trabajamos juntos por una comunidad más fuerte y solidaria.”</p>
+        <%- include('../templates/navbarDonationRequests') %>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <div class="container">
+                <form id="transferDonationForm" class="form">
+                    <h2>Transferencia de Donación</h2>
+
+                    <div id="selectContainer"></div>
+
+                    <button type="button" id="btnGenerateAnotherSelect" class="btn-secondary">
+                        + Agregar otra donación
+                    </button>
+
+                    <input type="hidden" name="organizationId" value="<%= organizationId %>">
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Confirmar</button>
+                        <button type="button" id="btnCancel" class="btn-cancel">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="success"></div>
+    <div id="error"></div>
+
+    <%- include('../templates/footer') %>
+    <script type="module" src="/js/donations/transferDonation.js"></script>
+</body>
+
+</html>

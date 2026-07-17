@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <title>Ofrecer Donación</title>
+</head>
+<body>
+    <%- include('../templates/navbarDonationRequests', { roles: roles }) %>
+
+    <section>
+        <div class="container">
+            <h1>Ofrecer Donaciones a la Red</h1>
+            <p>Completa el formulario para poner donaciones a disposición de otras ONGs.</p>
+
+            <form id="createOfferForm" class="form">
+                <div id="donations-container">
+                    </div>
+
+                <button type="button" id="add-donation-btn" class="btn-secondary">+ Agregar Item</button>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Publicar Oferta</button>
+                    <a href="/donation-offers" class="btn-cancel">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <%- include('../templates/footer') %>
+
+    <script src="/js/donations/createDonationOffer.js"></script>
+</body>
+</html>

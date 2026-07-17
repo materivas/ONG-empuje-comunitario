@@ -1,0 +1,46 @@
+<div id="filters">
+    <h2>Filtros</h2>
+    <form id="filter-form">
+        <div class="filter-row">
+            <div>
+                <label for="category">Categoría:</label>
+                <select id="category" name="category">
+                    <option value="TODAS">Todas</option>
+                    <option value="ROPA">Ropa</option>
+                    <option value="ALIMENTOS">Alimentos</option>
+                    <option value="JUGUETES">Juguetes</option>
+                    <option value="UTILES_ESCOLARES">Utiles escolares</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="dateFrom">Desde:</label>
+                <input type="date" id="dateFrom" name="dateFrom">
+            </div>
+
+            <div>
+                <label for="dateTo">Hasta:</label>
+                <input type="date" id="dateTo" name="dateTo">
+            </div>
+
+            <div>
+                <label for="deleted">Eliminado:</label>
+                <select id="deleted" name="deleted">
+                    <option value="">Ambos</option>
+                    <option value="false">No</option>
+                    <option value="true">Sí</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="filterButtons">
+            <select id="saved-filters" name="saved-filters">
+                <option value="">Filtros guardados</option>
+            </select>
+            <button type="button" id="clear-filters">Limpiar filtros</button>
+            <button type="button" id="save-filters">Guardar filtros</button>
+            <button type="submit">Aplicar filtros</button>
+            <button type="button" id="generate-excel" data-export-type="<%= typeof exportType !== 'undefined' ? exportType : 'all' %>">Generar Excel</button>
+        </div>
+    </form>
+</div>

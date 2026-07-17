@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create external event</title>
+    <link rel="stylesheet" href="/css/eventsStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+</head>
+
+<body>
+    <h1>ONG Empuje Comunitario</h1>
+    <nav>
+        <a href="/events">Nuestros eventos</a>
+        <a href="/events/create">Crear evento</a>
+        <a href="/events/createExternal">Crear evento externo</a>
+        <a href="/events/external">Eventos externos</a>
+        <a href="/home">Volver a inicio</a>
+        <a href="#" onclick="logout(); return false;">Cerrar sesión</a>
+    </nav>
+
+    <section>
+
+        <div class="container">
+            <h1>Crear evento externo</h1>
+
+            <form id="form" onsubmit="event.preventDefault(); createNewEvent();">
+
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="description">Descripción:</label>
+                <input type="text" id="description" name="description" required>
+
+                <label for="date">Fecha:</label>
+                <input type="datetime-local" id="date" name="date" required>
+
+                <button type="submit">Crear evento</button>
+            </form>
+            <button onclick="window.location.replace('/events')">Cancelar</button>
+        </div>
+
+    </section>
+    <%- include('../templates/footer') %>
+    <script src="../../js/events/createExternalEvent.js"></script>
+    <script src="../js/user/logout.js"></script>
+</body>
+
+</html>

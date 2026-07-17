@@ -1,0 +1,22 @@
+<head>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+    <nav>
+        <a href="/home">Volver al inicio</a>
+        <% if(roles && roles.includes("PRESIDENTE")){ %>
+        <a href="/user/">Gestión de Usuarios</a>
+        <a href="/queries/">Consultas</a>
+        <% } %>
+        <% if(roles && (roles.includes("PRESIDENTE") || roles.includes("COORDINADOR") || roles.includes("VOLUNTARIO"))){ %>
+        <a href="/events/">Eventos</a>
+        <% } %>
+        <% if(roles && (roles.includes("PRESIDENTE") || roles.includes("VOCAL"))){ %> 
+        <a href="/inventories/">Inventarios</a> 
+        <a href="/donationRequests/allRequests">Solicitudes y transferencias de donaciones</a>
+        <a href="/donations/our-donations-report">Informes de donaciones</a>
+        <% } %>
+        <a href="#" onclick="logout(); return false;">Cerrar sesión</a>
+    </nav>
+    <script src="/js/user/logout.js"></script>
+</body>

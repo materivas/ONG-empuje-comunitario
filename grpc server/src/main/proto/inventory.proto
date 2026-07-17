@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option java_outer_classname = "InventoryServiceClass";
+option java_package = "com.grupo_c.SistemasDistribuidosTP.service";
+
+import "utils.proto";
+import "user.proto";
+
+// ========== MENSAJES ==========
+
+message InventoryDTO {
+  int64 idInventory = 1;
+  UserSimpleDTO userCreate = 2;
+  UserSimpleDTO userModify = 3;
+  string category = 4;
+  string description = 5;
+  int32 quantity = 6;
+  bool isDeleted = 7;
+  int64 creationDate = 8;
+  int64 modificationDate = 9;
+}
+
+message InventoryListResponse {
+  repeated InventoryDTO inventories = 1;
+}
+
+message InventoryRequest {
+  int64 idInventory = 1;
+}
+
+message InventoryCategory {
+  string category = 1;
+  bool isDeleted = 2;
+}
+
+message AddOrUpdateStockRequest {
+    repeated InventoryItem items = 1;
+}
+
+message InventoryItem {
+    string category = 1;
+    string description = 2;
+    int32 quantity = 3;
+}
+
+// ========== SERVICIO ==========
+
+service InventoryService {
+  rpc GetInventoryList(Empty) returns (InventoryListResponse);
+  rpc GetInventoryById(InventoryRequest) returns (InventoryDTO);
+  rpc GetInventoryByCategory(InventoryCategory) returns (InventoryListResponse);
+  rpc CreateInventory(InventoryDTO) returns (InventoryDTO);
+  rpc UpdateInventory(InventoryDTO) returns (InventoryDTO);
+  rpc DeleteInventory(InventoryRequest) returns (Empty);
+  rpc GetAvailableInventory(Empty) returns (InventoryListResponse);
+  rpc AddOrUpdateStock(AddOrUpdateStockRequest) returns (Response);
+}

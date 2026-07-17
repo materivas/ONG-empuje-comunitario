@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="/css/eventsStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+</head>
+
+<body>
+    <h1>ONG Empuje Comunitario</h1>
+    <nav>
+        <a href="/events">Nuestros eventos</a>
+        <% if(roles && (roles.includes("PRESIDENTE") || roles.includes("COORDINADOR"))){ %>
+            <a href="/events/create">Crear evento</a>
+            <a href="/events/createExternal">Crear evento externo</a>
+            <% } %>
+                <a href="/events/external">Eventos externos</a>
+                <a href="/home">Volver a inicio</a>
+                <a href="#" onclick="logout(); return false;">Cerrar sesión</a>
+    </nav>
+
+    <section>
+
+        <div class="container">
+            <h1>Eventos</h1>
+            <h2>Filtros personalizados</h2>
+
+            <form id="filtroForm">
+                <input type="text" id="nombreFiltro" placeholder="Nombre del filtro">
+                <br>
+                <button type="submit">Guardar filtro</button>
+            </form>
+
+            <ul id="listaFiltros" style="list-style:none; padding:0; margin-top:10px;"></ul>
+            <hr>
+            <table id="eventsList">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Finalizado</th>
+                    <th>Opciones</th>
+                </tr>
+
+                <% events.forEach(event=> { %>
+                    <tr>
+                        <td>
+                            <%= event.name %>
+                        </td>
+                        <td>
+                            <%= event.description %>
+                        </td>
+                        <td>
+                            <%= new Date(event.date.seconds * 1000).toLocaleDateString('es-AR') %>
+                                <br>
+                                <%= new Date(event.date.seconds * 1000).toLocaleTimeString('es-AR', { hour: '2-digit' ,
+                                    minute: '2-digit' , hour12: false }) %>
+                        </td>
+                        <td>
+                            <% if(event.is_completed) {%>
+                                Sí
+                                <% } else{ %>
+                                    No
+                                    <% } %>
+                        </td>
+                        <td>
+                            <!-- se valida el rol del usuario -->
+                            <% if(roles && (roles.includes("PRESIDENTE") || roles.includes("COORDINADOR"))){ %>
+                                <% if(event.is_completed) {%>
+                                    <!-- falta registrar donaciones de eventos pasados -->
+                                    <button onclick="donationsRegistry(<%= event.id %>, '<%= event.name %>')">registro
+                                        de donaciones</button>
+                                    <%} else {%>
+                                        <button onclick="modifyEvent(<%= event.id %>)">modificar</button>
+                                        <button onclick="deleteEvent(<%= event.id %>)">eliminar</button>
+                                        <% } %>
+                                            <% } %>
+
+                                                <% if(!event.is_completed) {%>
+                                                    <% if(event.joined){ %>
+                                                        <button onclick="leaveEvent(<%= event.id %>)">abandonar</button>
+                                                        <%} else {%>
+                                                            <button
+                                                                onclick="joinEvent(<%= event.id %>)">participar</button>
+                                                            <% } %>
+                                                                <% } %>
+
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+        <script src="../../js/events/events.js"></script>
+        <script src="../js/user/logout.js"></script>
+        <script> window.userId = <%= userId %>; </script>
+        <script src="../../js/events/eventFilters.js"></script>
+</body>
+
+</html>

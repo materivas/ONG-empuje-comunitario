@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <title>Solicitudes de donaciones</title>
+</head>
+<body>
+    <h1>ONG Empuje Comunitario - Solicitudes de donaciones</h1>
+    <p class="slogan">“Trabajamos juntos por una comunidad más fuerte y solidaria.”</p>
+    <%- include('../templates/navbarDonationRequests') %>
+    <section>
+        <div class="container">
+            <h1>Solicitudes de donaciones externas</h1>
+            <table id="donationRequestList">
+                <tr>
+                    <th>ID de la organización solicitante</th>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <script src="/js/donations/donationRequests.js"></script>
+</body>
+</html>

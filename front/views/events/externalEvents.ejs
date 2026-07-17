@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Events</title>
+    <link rel="stylesheet" href="/css/eventsStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+</head>
+
+<body>
+    <h1>ONG Empuje Comunitario</h1>
+    <nav>
+        <a href="/events">Nuestros eventos</a>
+        <% if(roles && (roles.includes("PRESIDENTE") || roles.includes("COORDINADOR"))){ %>
+            <a href="/events/create">Crear evento</a>
+            <a href="/events/createExternal">Crear evento externo</a>
+        <% } %>
+        <a href="/events/external">Eventos externos</a>
+        <a href="/home">Volver a inicio</a>
+        <a href="#" onclick="logout(); return false;">Cerrar sesión</a>
+    </nav>
+
+    <section>
+
+        <div class="container">
+            <h1>Eventos Externos</h1>
+
+            <table id="eventsList">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <!-- <th>Finalizado</th> -->
+                    <th>Opciones</th>
+                </tr>
+
+                
+            </table>
+
+        </div>
+    </section>
+    <%- include('../templates/footer') %>
+    <script>
+        window.roles = <%- JSON.stringify(roles) %>;
+    </script>
+    <script src="../js/events/externalEvents.js"></script>
+    <script src="../js/user/logout.js"></script>
+</body>
+
+</html>

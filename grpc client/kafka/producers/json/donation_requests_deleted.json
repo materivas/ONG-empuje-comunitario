@@ -1,0 +1,58 @@
+[
+  {
+    "organization_id": 2,
+    "request_id": 1,
+    "status": "DELETED",
+    "deleted_at": "2025-09-27T10:30:00Z",
+    "donations": [
+      {
+        "category": "ALIMENTOS",
+        "description": "Leche en polvo"
+      },
+      {
+        "category": "ROPA",
+        "description": "Bufandas"
+      }
+    ]
+  },
+  {
+    "organization_id": 3,
+    "request_id": 2,
+    "status": "DELETED",
+    "deleted_at": "2025-09-27T10:40:00Z"
+  },
+  {
+    "organization_id": 4,
+    "request_id": 3,
+    "status": "DELETED",
+    "deleted_at": "2025-09-27T10:50:00Z",
+    "donations": [
+      {
+        "category": "JUGUETES",
+        "description": "Rompecabezas"
+      },
+      {
+        "category": "ALIMENTOS",
+        "description": "Fideos"
+      }
+    ]
+  },
+  {
+    "organization_id": 5,
+    "request_id": 4,
+    "status": "DELETED",
+    "deleted_at": "2025-09-27T11:00:00Z"
+  },
+  {
+    "organization_id": 6,
+    "request_id": 5,
+    "status": "DELETED",
+    "deleted_at": "2025-09-27T11:10:00Z",
+    "donations": [
+      {
+        "category": "UTILES_ESCOLARES",
+        "description": "Cartucheras"
+      }
+    ]
+  }
+]

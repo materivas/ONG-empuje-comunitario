@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Inventario</title>
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+</head>
+<body>
+    <%- include('../templates/navbarHome') %>
+    <main>
+        <h1>Detalle Inventario</h1>
+        <ul>
+            <li><strong>Categoría:</strong> <%= inventory.category %></li>
+            <li><strong>Descripción:</strong> <%= inventory.description %></li>
+            <li><strong>Cantidad:</strong> <%= inventory.quantity %></li>
+            <li><strong>Eliminado:</strong> <%= inventory.isDeleted ? 'Sí' : 'No' %></li>
+        </ul>
+        <a href="/inventories" class="button-link">Volver a lista</a>
+    </main>
+    <%- include('../templates/footer') %>
+</body>
+</html>

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+option java_outer_classname = "UserServiceClass";
+option java_package = "com.grupo_c.SistemasDistribuidosTP.service";
+
+import "utils.proto";
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message UserWithTokenDTO {
+  UserWithRolesDTO userWithRolesDTO = 1;
+  string token = 2;
+}
+
+message RoleDTO {
+  string name = 1;
+}
+
+message UserWithRolesDTO {
+  string username = 1;
+  string name = 2;
+  string surname = 3;
+  string phoneNumber = 4;
+  string email = 5;
+  bool isActive = 6;
+  repeated RoleDTO roles = 7;
+}
+
+message UserWithIdAndRolesDTO {
+  int64 id = 1;
+  UserWithRolesDTO userWithRolesDTO = 2;
+}
+
+message UserListResponse {
+  repeated UserWithIdAndRolesDTO users = 1;
+}
+
+message ActiveUsersListDTO {
+  repeated UserSimpleDTO users = 1;
+}
+
+message UserSimpleDTO {
+    int64 id = 1;
+    string username = 2;
+}
+
+message UserIdDTO {
+  int64 id = 1;
+}
+
+message UserUsernameDTO {
+  string username = 1;
+}
+
+service UserService {
+  rpc Login(LoginRequest) returns (UserWithTokenDTO);
+  rpc CreateUser(UserWithRolesDTO) returns (Response);
+  rpc ModifyUser(UserWithIdAndRolesDTO) returns (Response);
+  rpc DeleteUser(UserIdDTO) returns (Response);
+  rpc GetUserList(Empty) returns (UserListResponse);
+  rpc GetActiveUsersList(Empty) returns (ActiveUsersListDTO);
+  rpc GetUser(UserUsernameDTO) returns (UserWithIdAndRolesDTO);
+}

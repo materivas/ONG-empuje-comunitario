@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+</head>
+<body>
+    <%- include('../templates/navbarHome') %>
+    <main>
+        <h1>Inventario</h1>
+        <a href="/inventories/create" class="button-link">Crear nuevo inventario</a>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Eliminado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% inventories.forEach(function(inv){ %>
+                <tr>
+                    <td><%= inv.category %></td>
+                    <td><%= inv.description %></td>
+                    <td><%= inv.quantity %></td>
+                    <td><%= inv.isDeleted ? 'Sí' : 'No' %></td>
+                    <td>
+                        <a href="/inventories/<%= inv.idInventory %>/edit">
+                            <button class="edit-button">Editar</button>
+                        </a>
+                        <form style="display:inline" method="post" action="/inventories/<%= inv.idInventory %>/delete">
+                            <button type="submit" onclick="return confirm('Confirmar baja?')" class="delete-button">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+    <%- include('../templates/footer') %>
+</body>
+</html>

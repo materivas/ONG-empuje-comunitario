@@ -1,0 +1,82 @@
+[
+    {
+        "offer_id": 1,
+        "organization_id": 2,
+        "donations": [
+            {
+                "category": "ALIMENTOS",
+                "description": "Puré de tomates",
+                "quantity": "2kg"
+            },
+            {
+                "category": "ROPA",
+                "description": "Camperas",
+                "quantity": "5 unidades"
+            }
+        ]
+    },
+    {
+        "offer_id": 2,
+        "organization_id": 3,
+        "donations": [
+            {
+                "category": "UTILES_ESCOLARES",
+                "description": "Cuadernos rayados",
+                "quantity": "20 unidades"
+            }
+        ]
+    },
+    {
+        "offer_id": 3,
+        "organization_id": 4,
+        "donations": [
+            {
+                "category": "JUGUETES",
+                "description": "Legos",
+                "quantity": "3 sets"
+            },
+            {
+                "category": "ALIMENTOS",
+                "description": "Fideos",
+                "quantity": "4kg"
+            },
+            {
+                "category": "ROPA",
+                "description": "Zapatillas",
+                "quantity": "6 pares"
+            }
+        ]
+    },
+    {
+        "offer_id": 4,
+        "organization_id": 5,
+        "donations": [
+            {
+                "category": "UTILES_ESCOLARES",
+                "description": "Lápices de colores",
+                "quantity": "30 unidades"
+            },
+            {
+                "category": "JUGUETES",
+                "description": "Pelotas de fútbol",
+                "quantity": "10 unidades"
+            }
+        ]
+    },
+    {
+        "offer_id": 5,
+        "organization_id": 6,
+        "donations": [
+            {
+                "category": "ALIMENTOS",
+                "description": "Arroz",
+                "quantity": "5kg"
+            },
+            {
+                "category": "UTILES_ESCOLARES",
+                "description": "Cartucheras",
+                "quantity": "15 unidades"
+            }
+        ]
+    }
+]

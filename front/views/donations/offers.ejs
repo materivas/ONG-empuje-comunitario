@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userStyles.css">
+    <title>Ofertas de Donaciones</title>
+</head>
+<body>
+    <%- include('../templates/navbarDonationRequests', { roles: roles }) %>
+
+    <section>
+        <div class="container">
+            <h1>Ofertas de Donaciones</h1>
+            <p>Aquí se listan las donaciones que otras organizaciones de la red han puesto a disposición.</p>
+
+            <a href="/donation-offers/create" style="margin-bottom: 20px; display: inline-block;">+ Ofrecer una Nueva Donación</a>
+            <table id="offers-table">
+                <thead>
+                    <tr>
+                        <th>ID Oferta</th>
+                        <th>ID ONG Donante</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody id="offers-table-body">
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Cargando ofertas...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/donation-offers/api/list') // Asumo que esta es la ruta correcta
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.getElementById('offers-table-body');
+                    tableBody.innerHTML = ''; // Limpiamos la tabla
+
+                    // Verificamos si 'data' es realmente un array
+                    const offersData = Array.isArray(data) ? data : [];
+
+                    if (offersData.length === 0) {
+                        tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No hay ofertas disponibles.</td></tr>';
+                        return;
+                    }
+
+                    // --- INICIO DE LA LÓGICA DE AGRUPACIÓN (CON ARREGLO) ---
+                    offersData.forEach(offer => {
+                        // *** ESTE ES EL ARREGLO IMPORTANTE ***
+                        // Asegura que 'donations' sea un array aunque 'Lista_donaciones_ofrecidas' no exista o sea null
+                        const donations = offer.Lista_donaciones_ofrecidas || [];
+                        const numDonations = donations.length;
+
+                        if (numDonations === 0) return; // Omitir ofertas sin items
+
+                        donations.forEach((donation, index) => {
+                            let rowHTML = '';
+                            if (index === 0) {
+                                // Primera fila del grupo: usa rowspan
+                                rowHTML = `
+                                    <tr>
+                                        <td rowspan="${numDonations}">${offer.ID_oferta}</td>
+                                        <td rowspan="${numDonations}">${offer.ID_organizacion_donante}</td>
+                                        <td>${donation.Categoria || 'N/A'}</td>
+                                        <td>${donation.Descripcion || 'N/A'}</td>
+                                        <td>${donation.Cantidad || 0}</td>
+                                    </tr>
+                                `;
+                            } else {
+                                // Filas siguientes: solo datos de la donación
+                                rowHTML = `
+                                    <tr>
+                                        <td>${donation.Categoria || 'N/A'}</td>
+                                        <td>${donation.Descripcion || 'N/A'}</td>
+                                        <td>${donation.Cantidad || 0}</td>
+                                    </tr>
+                                `;
+                            }
+                            tableBody.innerHTML += rowHTML;
+                        });
+                    });
+                    // --- FIN DE LA LÓGICA DE AGRUPACIÓN ---
+                })
+                .catch(error => {
+                    console.error('Error al cargar las ofertas:', error);
+                    const tableBody = document.getElementById('offers-table-body');
+                    // Mostramos un mensaje más específico en caso de error de red o JSON
+                    tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: red;">Error al cargar las ofertas. Verifique la conexión o el formato de los datos. (${error.message})</td></tr>`;
+                });
+        });
+    </script>
+
+    <%- include('../templates/footer') %>
+</body>
+</html>
