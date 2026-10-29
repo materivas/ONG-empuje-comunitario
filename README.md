@@ -17,9 +17,9 @@ Este proyecto implementa un sistema con **gRPC (Java/Spring Boot, NodeJS)**, **A
 
 ## Documentación
 
-- [Documentación del gRPC Server](https://github.com/UlisesChoco/Sistemas-Distribuidos-Grupo-C-TP/blob/master/grpc%20server/README.md)
-- [Documentación del gRPC Client](https://github.com/UlisesChoco/Sistemas-Distribuidos-Grupo-C-TP/blob/master/grpc%20client/README.md)
-- [Documentación del GraphQL Server](https://github.com/UlisesChoco/ONG-Empuje-Comunitario/blob/master/graphql-server/Readme.md)
+- [Documentación del gRPC Server](https://github.com/materivas/ONG-empuje-comunitario/blob/main/grpc%20server/README.md)
+- [Documentación del gRPC Client](https://github.com/materivas/ONG-empuje-comunitario/blob/main/grpc%20client/README.md)
+- [Documentación del GraphQL Server](https://github.com/materivas/ONG-empuje-comunitario/blob/main/graphql-server/Readme.md)
 
 ---
 ## 📋 Prerrequisitos
