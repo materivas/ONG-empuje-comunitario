@@ -31,7 +31,7 @@ Antes de comenzar, se debe tener instalado:
 ## 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/UlisesChoco/ONG-Empuje-Comunitario.git
+git clone https://github.com/materivas/ONG-empuje-comunitario
 cd ONG-Empuje-Comunitario
 ```
 
